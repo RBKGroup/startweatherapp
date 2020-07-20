@@ -2,7 +2,7 @@ import React from "react";
 import cors from 'cors'
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
-
+import Weathers from "./search"
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +24,7 @@ class Login extends React.Component {
 
     axios
       .get(
-        `http://localhost:5000/login/${this.state.email}/${this.state.password}`,
+        `http://localhost:5000/login/${this.state.username}/${this.state.password}`,
         {
           user: {
             username:username,
@@ -34,9 +34,10 @@ class Login extends React.Component {
         { withCredentials: true }
       )
       .then((response) => {
+        console.log(response)
         if (response.data===true) {
      this.props.setUserAuth(true);
-   //  this.props.history.push("/auth/Search");
+    this.props.history.push("/auth/Weathers");
       }
     })
     .catch((error) => {
