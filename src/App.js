@@ -32,6 +32,9 @@ import {
             </Route>
             <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/">
               {/* <App2 /> */}
+              <div>
+                <h1>helloooo world</h1>
+              </div>
             </PrivateRoute>
           </Switch>
         </Router>
