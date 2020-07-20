@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+<<<<<<< HEAD
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -15,6 +16,9 @@
     "mongoose": "^5.9.25",
     "mongoose-type-email": "^1.0.12",
     "nodemon": "^2.0.4",
+=======
+    "cors": "^2.8.5",
+>>>>>>> 51115071dbcc4c543c065cb6da3e127418b09a38
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
