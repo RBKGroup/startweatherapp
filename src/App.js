@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Registration from "./registration.js";
 import Login from "./login.js";
-import Weathers from "./search"
+import App2 from "./App2"
 import {
   BrowserRouter as Router,
   Switch,
@@ -30,8 +30,9 @@ import {
               <Registration setUserAuth={this.setUserAuth} />
             </Route>
             <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/">
-           < Weathers/>
+           < App2/>
             </PrivateRoute>
+     
           </Switch>
         </Router>
       </div>
