@@ -16,6 +16,9 @@ let AccountsModel = reg.AccountsModel;
 const news = require("../database/data");
 let newsModel = news.newsModel;
 
+const massages = require('../database/massages');
+let massagesModel = massages.massagesModel;
+
 app.post('/register', (req, res) => {
   const { username, email, password } = req.body;
   let regDocumentation = new AccountsModel({ username, email, password });
@@ -55,6 +58,20 @@ app.get('/data' ,function (req,res){
         res.send(err);
     })
 })
+
+app.post('/massages',(req,res) =>{
+  const { firstname, lastname, country, subject } = req.body;
+  let massageDoc = new massagesModel({ firstname, lastname, country, subject });
+
+  massageDoc
+    .save()
+    .then(() => res.status(201).send('sent'))
+    .catch(err => res.status(500).send(err + 'err'));
+});
+
+
+
+
 
 var port = 5000;
 app.listen(port, () => {
