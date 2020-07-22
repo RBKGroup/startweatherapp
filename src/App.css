@@ -5,6 +5,9 @@
 .hr {
   width: 200px;
 }
+#spanw{
+  color:rgba(247, 191, 6, 0.952) ;
+}
 .inner-container {
   opacity: 80%;
   width: 500px;

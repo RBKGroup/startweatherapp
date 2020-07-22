@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 
-
 const api = {
   key: '21e8aec578e07d1343c0942cb7627fa1',
   base: 'https:api.openweathermap.org/data/2.5/',
@@ -15,24 +14,31 @@ function Weathers() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
 
-  //   const search = (evt) => {
-  //     if (evt.key === "Enter") {
-  //   axios.get(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
-  //   .then((result) => {
-  //     setWeather(result);
-  //     setQuery("");
-  //     console.log(result);
-  //   });
-  // }
-  // }
+  const a = evt => {
+    
+    // if (evt.key === 'Enter') {
+    //   axios
+    //     .get(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+    //     .then(result => {
+    //       setWeather(result);
+    //       setQuery('');
+    //       console.log(result);
+    //     });
+    // }
+  };
   const search = evt => {
     if (evt.key === 'Enter') {
       fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
         .then(res => res.json())
         .then(result => {
-          setWeather(result);
-          setQuery('');
           console.log(result);
+          if (result.message === 'city not found') {
+            alert('CITY NOT FOUND');
+          } else {
+            setWeather(result);
+            setQuery('');
+            console.log(result);
+          }
         });
     }
   };
@@ -84,20 +90,21 @@ function Weathers() {
       <main>
         <div class='nav'>
           <header class='h2'>
-            <h2>Weather app</h2>
+            <h2 id='header'>
+              <span id='spanw'> WEATHER </span> <span id='finde'>APP</span>{' '}
+            </h2>
             <br />
             <nav>
               <ul class='links'>
                 <li>
-                <Link to='/auth/Weathers' class='right'>
+                  <Link to='/auth/Weathers' class='right'>
                     HOME
                   </Link>
                 </li>
                 <li>
-                  <a href='#'>LOGOUT</a>
+                  <button onClick='a'>LOGOUT</button>
                 </li>
                 <li>
-                  
                   <Link to='/auth/About' class='right'>
                     ABOUT
                   </Link>

@@ -27,22 +27,30 @@ class Registration extends React.Component {
         password,
       })
       .then(response => {
-        if (response.data === 'created') {
+        console.log(response)
+        if (response.data) {
           console.log('NOW LOGIN TO CONFIRM YOUR  ACCOUNT');
           this.props.setUserAuth(true);
+          alert('NOW LOGIN TO CONFIRM YOUR  ACCOUNT');
           this.props.history.push('/auth/login');
-        }
+        } 
       })
       .catch(error => {
         console.log('registration error', error);
+        alert('THIS USERNAME IS ALREADY USED TRY ANOTHER ONE');
         this.props.setUserAuth(false);
+        this.setState({
+          username:''
+        })
       });
   }
 
   render() {
     return (
       <div className='inner-container'>
-        <div class="h1"><h1 >Weather App</h1></div>
+        <div class='h1'>
+          <h1>Weather App</h1>
+        </div>
         <form onSubmit={this.handelSubmite.bind(this)} className='box'>
           <h1 className='header'>Account Sign Up</h1>
           <hr class='hr' />
@@ -85,7 +93,11 @@ class Registration extends React.Component {
           <button class='btn'>SignUp</button>
           <br />
           <p>
-            you have alredy account ! <Link to='/auth/login' class="link"> login now</Link>
+            you have alredy account !{' '}
+            <Link to='/auth/login' class='link'>
+              {' '}
+              login now
+            </Link>
           </p>
         </form>
       </div>
