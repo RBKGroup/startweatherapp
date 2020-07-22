@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 
+var input = "";
 
 const api = {
   key: '21e8aec578e07d1343c0942cb7627fa1',
@@ -14,6 +15,8 @@ function Weathers() {
   // var className = "Weathers";
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
+  const [data, setData] = useState([]);
+
 
   //   const search = (evt) => {
   //     if (evt.key === "Enter") {
@@ -25,7 +28,16 @@ function Weathers() {
   //   });
   // }
   // }
+
+  // const newsData = data.map((data)=>{
+  //     return(
+
+  //     )
+  // })
+
+
   const search = evt => {
+    input = `${query}`;
     if (evt.key === 'Enter') {
       fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
         .then(res => res.json())
@@ -35,6 +47,16 @@ function Weathers() {
           console.log(result);
         });
     }
+    axios
+      .get('http://localhost:5000/data')
+      .then(response => {
+        console.log(response.data);
+        const data = response.data;
+        setData({ data });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   var dateBuilder = d => {
@@ -89,7 +111,7 @@ function Weathers() {
             <nav>
               <ul class='links'>
                 <li>
-                <Link to='/auth/Weathers' class='right'>
+                  <Link to='/auth/Weathers' class='right'>
                     HOME
                   </Link>
                 </li>
@@ -97,7 +119,7 @@ function Weathers() {
                   <a href='#'>LOGOUT</a>
                 </li>
                 <li>
-                  
+
                   <Link to='/auth/About' class='right'>
                     ABOUT
                   </Link>
@@ -136,17 +158,19 @@ function Weathers() {
               </div>
               <br />
               <marquee>
-                <p>
-                  Niveen Ismail Salem Elkhozondar Niveen Ismail Salem
-                  Elkhozondar
-                </p>
+                
+                <p> {data.data.map((element, index)=>{
+                  if(input == element.city){
+                    return element.news;
+                  }
+                })} </p>
               </marquee>
             </div>
             <div></div>
           </div>
         ) : (
-          ''
-        )}
+            ''
+          )}
       </main>
     </div>
   );
