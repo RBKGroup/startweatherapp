@@ -6,35 +6,6 @@ class About extends React.Component {
   constructor(props) {
     super(props);
   }
-
-  handleSubmit(event) {
-    const { username, password } = this.state;
-
-    axios
-      .get(
-        `http://localhost:5000/login/${this.state.username}/${this.state.password}`,
-        {
-          user: {
-            username: username,
-            password: password,
-          },
-        },
-        { withCredentials: true }
-      )
-      .then(response => {
-        console.log(response);
-        if (response.data === true) {
-          this.props.setUserAuth(true);
-          this.props.history.push('/auth/Weathers');
-        }
-      })
-      .catch(error => {
-        console.log('login error', error);
-        this.props.setUserAuth(false);
-      });
-    event.preventDefault();
-  }
-
   render() {
     return (
       <div>
