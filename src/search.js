@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
 
+var input = "";
+
 const api = {
   key: '21e8aec578e07d1343c0942cb7627fa1',
   base: 'https:api.openweathermap.org/data/2.5/',
@@ -13,20 +15,29 @@ function Weathers() {
   // var className = "Weathers";
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
+  const [data, setData] = useState([]);
 
-  const a = evt => {
-    
-    // if (evt.key === 'Enter') {
-    //   axios
-    //     .get(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
-    //     .then(result => {
-    //       setWeather(result);
-    //       setQuery('');
-    //       console.log(result);
-    //     });
-    // }
-  };
+
+  //   const search = (evt) => {
+  //     if (evt.key === "Enter") {
+  //   axios.get(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+  //   .then((result) => {
+  //     setWeather(result);
+  //     setQuery("");
+  //     console.log(result);
+  //   });
+  // }
+  // }
+
+  // const newsData = data.map((data)=>{
+  //     return(
+
+  //     )
+  // })
+
+
   const search = evt => {
+    input = `${query}`;
     if (evt.key === 'Enter') {
       fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
         .then(res => res.json())
@@ -41,6 +52,16 @@ function Weathers() {
           }
         });
     }
+    axios
+      .get('http://localhost:5000/data')
+      .then(response => {
+        console.log(response.data);
+        const data = response.data;
+        setData({ data });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   var dateBuilder = d => {
@@ -143,17 +164,19 @@ function Weathers() {
               </div>
               <br />
               <marquee>
-                <p>
-                  Niveen Ismail Salem Elkhozondar Niveen Ismail Salem
-                  Elkhozondar
-                </p>
+                
+                <p> {data.data.map((element, index)=>{
+                  if(input == element.city){
+                    return element.news;
+                  }
+                })} </p>
               </marquee>
             </div>
             <div></div>
           </div>
         ) : (
-          ''
-        )}
+            ''
+          )}
       </main>
     </div>
   );

@@ -13,6 +13,9 @@ app.use(express.static(__dirname + '/../public'));
 const reg = require('../database/regester');
 let AccountsModel = reg.AccountsModel;
 
+const news = require("../database/data");
+let newsModel = news.newsModel;
+
 app.post('/register', (req, res) => {
   const { username, email, password } = req.body;
   let regDocumentation = new AccountsModel({ username, email, password });
@@ -42,12 +45,16 @@ app.get('/login/:username/:password', (req, res) => {
       res.send(err);
     });
 });
-app.get 
-  ('/logout',
-  (request, response) => {
-    console.log('dddd');
-    response.send('loged out ...');
-  });
+
+
+app.get('/data' ,function (req,res){
+    newsModel.find({})
+    .then((result)=>{
+        res.send(result);
+    }).catch((err) =>{
+        res.send(err);
+    })
+})
 
 var port = 5000;
 app.listen(port, () => {
