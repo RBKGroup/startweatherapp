@@ -42,9 +42,14 @@ function Weathers() {
       fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
         .then(res => res.json())
         .then(result => {
-          setWeather(result);
-          setQuery('');
           console.log(result);
+          if (result.message === 'city not found') {
+            alert('CITY NOT FOUND');
+          } else {
+            setWeather(result);
+            setQuery('');
+            console.log(result);
+          }
         });
     }
     axios
@@ -106,7 +111,9 @@ function Weathers() {
       <main>
         <div class='nav'>
           <header class='h2'>
-            <h2>Weather app</h2>
+            <h2 id='header'>
+              <span id='spanw'> WEATHER </span> <span id='finde'>APP</span>{' '}
+            </h2>
             <br />
             <nav>
               <ul class='links'>
@@ -116,10 +123,9 @@ function Weathers() {
                   </Link>
                 </li>
                 <li>
-                  <a href='#'>LOGOUT</a>
+                  <button onClick='a'>LOGOUT</button>
                 </li>
                 <li>
-
                   <Link to='/auth/About' class='right'>
                     ABOUT
                   </Link>

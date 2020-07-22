@@ -38,6 +38,8 @@ class Login extends React.Component {
         if (response.data === true) {
           this.props.setUserAuth(true);
           this.props.history.push('/auth/Weathers');
+        } else {
+          alert('LogIn faild . . Make sure the information is correct');
         }
       })
       .catch(error => {
@@ -49,14 +51,16 @@ class Login extends React.Component {
 
   render() {
     return (
-    
-      
       <div class='inner-container'>
-        <div class="h1"><h1 class="h"> Weather App</h1></div>
-        
+        <div class='h1'>
+        <h1 id='header'>
+          <span id='spanw'> WEATHER </span> <span id='finde'>APP</span>{' '}
+        </h1>
+        </div>
+
         <form onSubmit={this.handleSubmit}>
-          <h1 class="header">Account Login</h1>
-          <hr class="hr"/>
+          <h1 class='header'>Account Login</h1>
+          <hr class='hr' />
           <input
             class='login-input'
             name='username'
@@ -77,9 +81,15 @@ class Login extends React.Component {
           />
           <br />
 
-          <button type='submit' class="btn">Login</button>
+          <button type='submit' class='btn'>
+            Login
+          </button>
           <p>
-            Dont have an account ? <Link to='/auth/reg' class="link"> register now</Link>{' '}
+            Dont have an account ?{' '}
+            <Link to='/auth/reg' class='link'>
+              {' '}
+              register now
+            </Link>{' '}
           </p>
         </form>
       </div>
